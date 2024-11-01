@@ -25,6 +25,7 @@ export default function Home() {
   const [isCameraMode, setIsCameraMode] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const BASE_URL = "http://142.171.211.106:8000";
 
   // File selection handler
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -91,7 +92,7 @@ export default function Home() {
 
     try {
       setUploadStatus("uploading");
-      const response = await fetch("http://localhost:3001/upload", {
+      const response = await fetch(`${BASE_URL}/upload`, {
         method: "POST",
         body: formData,
       });

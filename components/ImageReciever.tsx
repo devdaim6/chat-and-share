@@ -18,6 +18,7 @@ import Image from "next/image";
 
 const ImageReceiver = ({ initialId }: { initialId: string | null }) => {
   const [imageId, setImageId] = useState(initialId || "");
+  const BASE_URL = "http://142.171.211.106:8000";
 
   const [imageData, setImageData] = useState(null);
 
@@ -32,10 +33,9 @@ const ImageReceiver = ({ initialId }: { initialId: string | null }) => {
   const handleRetrieveImage = async () => {
     setImageData(null);
     setMessage("");
-
     await withMinimumLoading(async () => {
       try {
-        const response = await fetch(`http://localhost:3001/images/${imageId}`);
+        const response = await fetch(`${BASE_URL}/images/${imageId}`);
         if (!response.ok) {
           throw new Error("Image not found or has expired");
         }
@@ -91,12 +91,9 @@ const ImageReceiver = ({ initialId }: { initialId: string | null }) => {
   const handleDeleteImage = async () => {
     await withMinimumLoading(async () => {
       try {
-        const response = await fetch(
-          `http://localhost:3001/images/${imageId}`,
-          {
-            method: "DELETE",
-          }
-        );
+        const response = await fetch(`${BASE_URL}/images/${imageId}`, {
+          method: "DELETE",
+        });
 
         if (!response.ok) {
           throw new Error("Failed to delete image");
@@ -107,7 +104,7 @@ const ImageReceiver = ({ initialId }: { initialId: string | null }) => {
         toast.success("Image deleted successfully");
         window.location.href = "/receive";
       } catch (err) {
-        console.log(err)
+        console.log(err);
         toast.error("Failed to delete image");
       }
     }, setIsDeleting);
@@ -126,7 +123,7 @@ const ImageReceiver = ({ initialId }: { initialId: string | null }) => {
         document.body.removeChild(link);
         toast.success("Download started");
       } catch (err) {
-        console.log(err)
+        console.log(err);
         toast.error("Failed to download image");
       }
     }, setIsDownloading);

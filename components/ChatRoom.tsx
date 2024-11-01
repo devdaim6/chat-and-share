@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Send, Copy, LogOut } from "lucide-react";
 import { toast } from "sonner";
 
+const BASE_URL = "http://142.171.211.106:8000";
+
 interface Message {
   sender: string;
   message: string;
@@ -51,7 +53,7 @@ const ChatRoom: React.FC = () => {
 
   const handleCreateRoom = async () => {
     try {
-      await fetch("http://localhost:3001/create-room", {
+      await fetch(`${BASE_URL}/create-room`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -71,7 +73,7 @@ const ChatRoom: React.FC = () => {
     try {
       setIsLoadingMore(true);
       const response = await fetch(
-        `http://localhost:3001/room-messages/${roomId}?page=${page}`
+        `${BASE_URL}/room-messages/${roomId}?page=${page}`
       );
       const data: MessagesResponse = await response.json();
 
@@ -101,9 +103,7 @@ const ChatRoom: React.FC = () => {
   useEffect(() => {
     if (!isRoomJoined) return;
 
-    const eventSource = new EventSource(
-      `http://localhost:3001/room-stream/${roomId}`
-    );
+    const eventSource = new EventSource(`${BASE_URL}/room-stream/${roomId}`);
 
     eventSource.onmessage = (event) => {
       const newMsg = JSON.parse(event.data) as Message;
@@ -120,13 +120,13 @@ const ChatRoom: React.FC = () => {
     if (isInitialLoad || messages[messages.length - 1]?.sender === username) {
       scrollToBottom();
     }
-  }, [ ]);
+  }, []);
 
   const handleSendMessage = async () => {
     if (!newMessage.trim() || !username.trim()) return;
 
     try {
-      await fetch("http://localhost:3001/send-message", {
+      await fetch(`${BASE_URL}/send-message`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
