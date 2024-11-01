@@ -15,10 +15,17 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 
+// Add these type definitions
+type UploadStatus = '' | 'uploading' | 'success' | 'error';
+
+interface ChangeEvent extends React.ChangeEvent<HTMLTextAreaElement> {
+  target: HTMLTextAreaElement;
+}
+
 export default function Home() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [message, setMessage] = useState("");
-  const [uploadStatus, setUploadStatus] = useState("");
+  const [message, setMessage] = useState<string>("");
+  const [uploadStatus, setUploadStatus] = useState<UploadStatus>("");
   const [shareLink, setShareLink] = useState("");
   const [imageId, setImageId] = useState("");
   const [preview, setPreview] = useState("");
@@ -55,13 +62,12 @@ export default function Home() {
   // Capture photo from camera
   const captureImage = () => {
     if (videoRef.current && canvasRef.current) {
-      const context = canvasRef.current.getContext("2d");
+      const context = canvasRef.current.getContext('2d');
       if (!context) return;
       
       context.drawImage(videoRef.current, 0, 0, 640, 480);
 
-      // Convert canvas to blob
-      canvasRef.current.toBlob((blob) => {
+      canvasRef.current.toBlob((blob: Blob | null) => {
         if (!blob) return;
         const file = new File([blob], "captured-image.jpg", {
           type: "image/jpeg",
@@ -77,7 +83,7 @@ export default function Home() {
   const cancelCamera = () => {
     if (videoRef.current && videoRef.current.srcObject instanceof MediaStream) {
       const stream = videoRef.current.srcObject;
-      stream.getTracks().forEach(track => track.stop());
+      stream.getTracks().forEach((track: MediaStreamTrack) => track.stop());
     }
     setIsCameraMode(false);
   };
@@ -95,6 +101,10 @@ export default function Home() {
       const response = await fetch(`${BASE_URL}/upload`, {
         method: "POST",
         body: formData,
+        credentials: 'include',
+        headers: {
+          'Accept': 'application/json',
+        }
       });
 
       const data = await response.json();
@@ -110,6 +120,11 @@ export default function Home() {
   // Copy link to clipboard
   const copyToClipboard = () => {
     navigator.clipboard.writeText(shareLink);
+  };
+
+  // Update the message handler
+  const handleMessageChange = (e: ChangeEvent) => {
+    setMessage(e.target.value);
   };
 
   return (
@@ -199,7 +214,7 @@ export default function Home() {
               <Textarea
                 placeholder="Add a message to your image (optional)"
                 value={message}
-                onChange={(e) => setMessage(e.target.value)}
+                onChange={handleMessageChange}
                 className="w-full"
                 maxLength={500}
               />
