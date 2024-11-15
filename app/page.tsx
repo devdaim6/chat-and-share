@@ -16,7 +16,7 @@ import {
 import Image from "next/image";
 
 // Add these type definitions
-type UploadStatus = '' | 'uploading' | 'success' | 'error';
+type UploadStatus = "" | "uploading" | "success" | "error";
 
 interface ChangeEvent extends React.ChangeEvent<HTMLTextAreaElement> {
   target: HTMLTextAreaElement;
@@ -62,9 +62,9 @@ export default function Home() {
   // Capture photo from camera
   const captureImage = () => {
     if (videoRef.current && canvasRef.current) {
-      const context = canvasRef.current.getContext('2d');
+      const context = canvasRef.current.getContext("2d");
       if (!context) return;
-      
+
       context.drawImage(videoRef.current, 0, 0, 640, 480);
 
       canvasRef.current.toBlob((blob: Blob | null) => {
@@ -101,11 +101,6 @@ export default function Home() {
       const response = await fetch(`${BASE_URL}/upload`, {
         method: "POST",
         body: formData,
-     
-        headers: {
-          'Accept': 'application/json',
-          "Access-Control-Allow-Origin":"*"
-        }
       });
 
       const data = await response.json();

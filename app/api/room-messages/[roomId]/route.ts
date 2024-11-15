@@ -26,7 +26,7 @@ export async function GET(
     const endIndex = Math.max(0, totalMessages - page * limit);
     const paginatedMessages = room.messages
       .slice(startIndex, endIndex)
-      .map((msg: any) => ({
+      .map((msg: { _id: { toString: () => string }, message: string, sender: string, timestamp: Date }) => ({
         id: msg._id.toString(),
         roomId,
         message: msg.message,

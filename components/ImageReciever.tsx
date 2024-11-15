@@ -16,18 +16,13 @@ import { Loader } from "@/components/ui/loader";
 
 import Image from "next/image";
 
+const BASE_URL = "/api";
 const ImageReceiver = ({ initialId }: { initialId: string | null }) => {
   const [imageId, setImageId] = useState(initialId || "");
-  const BASE_URL = "/api";
-
   const [imageData, setImageData] = useState(null);
-
   const [message, setMessage] = useState("");
-
   const [loading, setLoading] = useState(false);
-
   const [isDeleting, setIsDeleting] = useState(false);
-
   const [isDownloading, setIsDownloading] = useState(false);
 
   const handleRetrieveImage = async () => {

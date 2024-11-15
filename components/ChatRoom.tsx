@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 
 import { useChat } from "@/app/hooks/useChat";
 
-import { LogOut, Send,  SmileIcon } from "lucide-react";
+import { LogOut, Send, SmileIcon } from "lucide-react";
 
 import { Copy } from "lucide-react";
 
@@ -16,15 +16,6 @@ import { Input } from "./ui/input";
 
 import { Loader } from "./ui/loader";
 import { EmojiPicker } from "./ui/EmojiPicker";
-
-
-interface Message {
-  sender: string;
-
-  message: string;
-
-  timestamp: Date;
-}
 
 interface ChatRoomProps {
   roomId: string;
@@ -63,8 +54,6 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ roomId, username }) => {
   const [autoScroll, setAutoScroll] = useState(true);
 
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-
-  const [selectedEmoji, setSelectedEmoji] = useState(null);
 
   const handleMessageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMessageInput(e.target.value);
@@ -160,9 +149,9 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ roomId, username }) => {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
-      const emojiPicker = document.querySelector('.emoji-picker');
-      const emojiButton = document.querySelector('.emoji-button');
-      
+      const emojiPicker = document.querySelector(".emoji-picker");
+      const emojiButton = document.querySelector(".emoji-button");
+
       if (
         emojiPicker &&
         !emojiPicker.contains(target) &&
@@ -172,8 +161,8 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ roomId, username }) => {
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   return (
@@ -233,7 +222,8 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ roomId, username }) => {
                   <div>{msg.message}</div>
 
                   <div className="text-xs text-gray-500">
-                    {new Date(msg.timestamp).toLocaleDateString()} : {new Date(msg.timestamp).toLocaleTimeString()}
+                    {new Date(msg.timestamp).toLocaleDateString()} :{" "}
+                    {new Date(msg.timestamp).toLocaleTimeString()}
                   </div>
                 </div>
               ))}
@@ -256,10 +246,12 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ roomId, username }) => {
               className="flex-1"
             />
             <Button
-              variant="ghost" 
+              variant="ghost"
               size="icon"
               onClick={handleEmojiPicker}
-              className={`emoji-button ${showEmojiPicker ? "text-primary-foreground" : ""}`}
+              className={`emoji-button ${
+                showEmojiPicker ? "text-primary-foreground" : ""
+              }`}
             >
               <SmileIcon className="w-5 h-5" />
             </Button>

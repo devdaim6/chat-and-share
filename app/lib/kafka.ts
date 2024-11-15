@@ -1,8 +1,5 @@
 import { Kafka, Producer, Consumer } from 'kafkajs';
 
-// Helper function to determine if we're running in Docker
-const isDocker = process.env.DOCKER === 'true';
-
 // Configure brokers based on environment
 const brokers = ['localhost:9092'];
 
@@ -31,11 +28,11 @@ export function createConsumer(groupId: string): Consumer {
 }
 
 export interface ChatMessage {
-  id: string;
+  id?: string;
   roomId: string;
   message: string;
   sender: string;
-  timestamp: number;
+  timestamp: Date;
 }
 
 export async function sendMessage(topic: string, message: ChatMessage): Promise<void> {

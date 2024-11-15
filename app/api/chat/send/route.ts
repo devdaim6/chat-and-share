@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getChatTopicName, sendMessage } from '@/app/lib/kafka';
+import { ChatMessage, getChatTopicName, sendMessage } from '@/app/lib/kafka';
 import { ChatRoom, connectDB } from '@/app/lib/models';
 
 export async function POST(request: NextRequest) {
@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Room not found' }, { status: 404 });
     }
 
-    const chatMessage = {
+    const chatMessage: ChatMessage = {
       sender,
       message,
       timestamp: new Date(),
