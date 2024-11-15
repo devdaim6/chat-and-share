@@ -18,7 +18,7 @@ import Image from "next/image";
 
 const ImageReceiver = ({ initialId }: { initialId: string | null }) => {
   const [imageId, setImageId] = useState(initialId || "");
-  const BASE_URL = "http://localhost:8000";
+  const BASE_URL = "/api";
 
   const [imageData, setImageData] = useState(null);
 

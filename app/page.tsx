@@ -32,7 +32,7 @@ export default function Home() {
   const [isCameraMode, setIsCameraMode] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const BASE_URL = "http://localhost:8000";
+  const BASE_URL = "/api";
 
   // File selection handler
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
