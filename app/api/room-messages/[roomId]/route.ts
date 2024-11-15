@@ -3,11 +3,11 @@ import { ChatRoom, connectDB } from "@/app/lib/models";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { roomId: string } }
+  { params }: { params: Promise<{ roomId: string }> }
 ) {
   try {
     await connectDB();
-    const { roomId } = params;
+    const { roomId } = await params;
     const url = new URL(request.url);
     const page = parseInt(url.searchParams.get('page') || '0');
     const limit = 10; // Number of messages per page

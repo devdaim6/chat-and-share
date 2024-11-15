@@ -3,7 +3,7 @@ import { Image, connectDB } from "@/app/lib/models";
 
 export async function GET(
   request: Request,
-  { params }: { params: { imageId: string } }
+  { params }: { params: Promise<{ imageId: string }> }
 ) {
   try {
     await connectDB();
@@ -31,7 +31,7 @@ export async function GET(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { imageId: string } }
+  { params }: { params: Promise<{ imageId: string }> }
 ) {
   try {
     await connectDB();

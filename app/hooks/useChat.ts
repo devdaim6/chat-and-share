@@ -132,7 +132,7 @@ export function useChat(roomId: string) {
 
           sender,
 
-          timestamp: Date.now(),
+          timestamp: new Date(),
         };
 
         const response = await fetch("/api/chat/send", {
