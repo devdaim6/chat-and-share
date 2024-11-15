@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Send, Copy, LogOut } from "lucide-react";
 import { toast } from "sonner";
 
-const BASE_URL = "http://142.171.211.106:8000";
+const BASE_URL = "http://localhost:8000";
 
 interface Message {
   sender: string;
@@ -182,6 +182,11 @@ const ChatRoom: React.FC = () => {
     container.addEventListener("scroll", handleScroll);
     return () => container.removeEventListener("scroll", handleScroll);
   }, [hasMore, isLoadingMore]);
+
+  // useEffect(() => {
+  //   const interval = setInterval(fetchRoomMessages, 1000);
+  //   return () => clearInterval(interval);
+  // }, []);
 
   if (!isRoomJoined) {
     return (
