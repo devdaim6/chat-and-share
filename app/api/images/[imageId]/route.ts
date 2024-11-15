@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { Image, connectDB } from "@/app/lib/models";
 
 export async function GET(
