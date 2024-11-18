@@ -91,5 +91,5 @@ This project is licensed under the MIT License - see the [![License](https://img
 For any questions or feedback, feel free to reach out:
 
 - **Email**: [devdaim@proton.me](mailto:devdaim@proton.me)
-- **LinkedIn**: [![LinkedIn](https://avatars.githubusercontent.com/u/357098?s=100&v=4)](https://www.linkedin.com/in/daimzahoorit)
-- **GitHub**: [![Github](https://avatars.githubusercontent.com/u/9919?s=100&v=4)](https://github.com/devdaim6)
+- **LinkedIn**: [![LinkedIn](https://avatars.githubusercontent.com/u/357098?s=40&v=4)](https://www.linkedin.com/in/daimzahoorit)
+- **GitHub**: [![Github](https://avatars.githubusercontent.com/u/9919?s=40&v=4)](https://github.com/devdaim6)
