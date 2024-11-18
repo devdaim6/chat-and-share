@@ -1,8 +1,8 @@
-# ImageShare
+# Chat And Share
 
 ## Overview
 
-ImageShare is a web application that allows users to share images and chat in real-time. The application leverages modern web technologies to provide a seamless and interactive user experience. Users can upload images, add messages, and share them with others via unique links. Additionally, the platform supports real-time chat rooms where users can communicate instantly.
+Chat And Share is a web application that allows users to share images and chat in real-time. The application leverages modern web technologies to provide a seamless and interactive user experience. Users can upload images, add messages, and share them with others via unique links. Additionally, the platform supports real-time chat rooms where users can communicate instantly.
 
 ## Features
 
@@ -44,11 +44,11 @@ Ensure you have the following installed:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/imageshare.git
+   git clone https://github.com/devdaim6/chat-and-share.git
    ```
 2. Navigate to the project directory:
    ```bash
-   cd imageshare
+   cd chat-and-share
    ```
 3. Install dependencies:
    ```bash
