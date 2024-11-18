@@ -1,9 +1,9 @@
-import { NextRequest, NextResponse } from 'next/server';
+import {  NextResponse } from 'next/server';
 import { v4 as uuidv4 } from 'uuid';
 import sharp from 'sharp';
 import { Image, connectDB } from '@/app/lib/models';
 
-export async function POST(request: NextRequest) {
+export async function POST(request: Request) {
   try {
     await connectDB();
 
