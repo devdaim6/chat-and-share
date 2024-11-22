@@ -94,11 +94,9 @@ export function useChat(roomId: string) {
     }
   };
 
-  // Set up real-time connection
 
   useEffect(() => {
     if (!loading) {
-      // Only set up SSE after initial messages are loaded
 
       const eventSource = new EventSource(`/api/chat/stream?roomId=${roomId}`);
 

@@ -1,46 +1,30 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-
 import { useChat } from "@/app/hooks/useChat";
-
 import { LogOut, Send, SmileIcon } from "lucide-react";
-
 import { Copy } from "lucide-react";
-
 import { Button } from "./ui/button";
-
 import { Card, CardHeader, CardTitle, CardContent } from "./ui/card";
-
 import { Input } from "./ui/input";
-
 import { Loader } from "./ui/loader";
 import { EmojiPicker } from "./ui/EmojiPicker";
 
 interface ChatRoomProps {
   roomId: string;
-
   username: string;
 }
 
 const ChatRoom: React.FC<ChatRoomProps> = ({ roomId, username }) => {
   const [messageInput, setMessageInput] = useState("");
-
   const {
     messages,
-
     sendMessage,
-
     loading,
-
     loadingMore,
-
     error,
-
     hasMore,
-
     loadMoreMessages,
-
     restoreScrollPosition,
   } = useChat(roomId);
 
