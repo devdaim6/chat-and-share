@@ -1,13 +1,13 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const connectDB = async () => {
   try {
     if (mongoose.connection.readyState === 0) {
       await mongoose.connect(process.env.MONGODB_URI!);
-      console.log('Connected to MongoDB');
+      console.log("Connected to MongoDB");
     }
   } catch (error) {
-    console.error('MongoDB connection error:', error);
+    console.error("MongoDB connection error:", error);
     throw error;
   }
 };
@@ -35,10 +35,11 @@ const ChatRoomSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now,
-    expires: "24h", 
   },
 });
 
-export const Image = mongoose.models.Image || mongoose.model("Image", ImageSchema);
-export const ChatRoom = mongoose.models.ChatRoom || mongoose.model("ChatRoom", ChatRoomSchema);
+export const Image =
+  mongoose.models.Image || mongoose.model("Image", ImageSchema);
+export const ChatRoom =
+  mongoose.models.ChatRoom || mongoose.model("ChatRoom", ChatRoomSchema);
 export { connectDB };

@@ -1,7 +1,7 @@
 import { Kafka, Producer, Consumer } from 'kafkajs';
 
 // Configure brokers based on environment
-const brokers = ['localhost:9092'];
+const brokers = [process.env.KAFKA_BROKER_URL as string];
 
 const kafka = new Kafka({
   clientId: 'chat-app',
@@ -10,7 +10,6 @@ const kafka = new Kafka({
     initialRetryTime: 100,
     retries: 8
   },
-  connectionTimeout: 3000,
 });
 
 let producer: Producer | null = null;

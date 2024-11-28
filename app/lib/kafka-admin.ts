@@ -1,6 +1,6 @@
 import { Kafka } from 'kafkajs';
 
-const brokers = ['localhost:9092'];
+const brokers = [process.env.KAFKA_BROKER_URL as string];
 
 const kafka = new Kafka({
   clientId: 'chat-admin',
@@ -9,7 +9,7 @@ const kafka = new Kafka({
     initialRetryTime: 100,
     retries: 8
   },
-  connectionTimeout: 3000,
+  
 });
 
 const admin = kafka.admin();
