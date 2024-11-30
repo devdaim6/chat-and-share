@@ -4,7 +4,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { AlertTriangle, Download, DownloadCloud, Trash2, Upload } from "lucide-react";
+import { AlertTriangle, Download, DownloadCloud, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { Loader } from "@/components/ui/loader";
 import Image from "next/image";

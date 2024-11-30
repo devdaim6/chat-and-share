@@ -27,7 +27,6 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ roomId, username }) => {
     error,
     hasMore,
     loadMoreMessages,
-    restoreScrollPosition,
   } = useChat(roomId);
 
   const currentUser =
@@ -37,7 +36,6 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ roomId, username }) => {
 
   const messagesContainerRef = useRef<HTMLDivElement>(null);
 
-  const [autoScroll, setAutoScroll] = useState(true);
   const [userScrolled, setUserScrolled] = useState(false);
 
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
@@ -58,7 +56,6 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ roomId, username }) => {
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     setUserScrolled(false);
-    setAutoScroll(true);
   };
 
   // Handle scroll with debounce for smoother experience
@@ -78,10 +75,8 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ roomId, username }) => {
 
     if (!isNearBottom) {
       setUserScrolled(true);
-      setAutoScroll(false);
     } else {
       setUserScrolled(false);
-      setAutoScroll(true);
     }
   }, [hasMore, loadingMore, loadMoreMessages]);
 
@@ -130,7 +125,6 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ roomId, username }) => {
       setMessageInput("");
       // Reset scroll position to bottom after sending message
       setUserScrolled(false);
-      setAutoScroll(true);
       messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }
   };
