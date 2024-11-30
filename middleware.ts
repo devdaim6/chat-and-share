@@ -6,7 +6,7 @@ export function middleware(request: NextRequest) {
 
   response.headers.set(
     "Access-Control-Allow-Origin",
-    "https://chat.tail11bb2d.ts.net/"
+    "https://chat.is-local.org/"
   );
   response.headers.set(
     "Access-Control-Allow-Methods",

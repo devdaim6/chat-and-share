@@ -1,8 +1,8 @@
 {
   "app\\chat\\page.tsx -> @/components/ChatRoom": {
-    "id": 5152,
+    "id": "app\\chat\\page.tsx -> @/components/ChatRoom",
     "files": [
-      "static/chunks/152.1d864ec15a926685.js"
+      "static/chunks/_app-pages-browser_components_ChatRoom_tsx.js"
     ]
   }
 }
