@@ -17,10 +17,5 @@ echo "Restarting PM2 processes..."
 pm2 delete all || echo "No PM2 processes to delete."
 pm2 start ecosystem.config.js || { echo "PM2 start failed"; exit 1; }
 
-# Expose the service with Tailscale
-echo "Setting up Tailscale Serve and Funnel..."
-sudo tailscale serve --bg 3000 || { echo "Tailscale Serve setup failed"; exit 1; }
-sudo tailscale funnel --bg 3000 || { echo "Tailscale Funnel setup failed"; exit 1; }
-
 echo "All tasks completed successfully."
 
