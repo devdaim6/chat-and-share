@@ -118,6 +118,7 @@ export default function Home() {
           ? err.message
           : "Could not access camera. Please check permissions."
       );
+      console.log(cameraError);
       setIsCameraMode(false);
     }
   };
