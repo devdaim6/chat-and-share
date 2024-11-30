@@ -1,95 +1,173 @@
-# Chat And Share
+# Chat & Share - A Real-time Chat Application
 
-## Overview
+## Project Overview
 
-Chat And Share is a web application that allows users to share images and chat in real-time. The application leverages modern web technologies to provide a seamless and interactive user experience. Users can upload images, add messages, and share them with others via unique links. Additionally, the platform supports real-time chat rooms where users can communicate instantly.
+Chat & Share is a modern web application that combines real-time chat functionality with image sharing capabilities. Built with Next.js 14 and TypeScript, it offers a seamless experience for users to communicate and share images in real-time.
+
+## Live Demo
+
+Experience Chat & Share in action: [Live Demo](https://chat.is-local.org)
 
 ## Features
 
-- **Image Upload and Sharing**: Users can upload images and share them with others using a unique link.
-- **Real-time Chat**: Users can join chat rooms and communicate in real-time.
-- **Image Compression**: Uploaded images are compressed and converted to WebP format for efficient storage and transfer.
-- **Room Management**: Users can create, join, and delete chat rooms.
-- **Emoji Support**: Users can enhance their chat experience with a wide range of emojis.
-- **Responsive Design**: The application is designed to work seamlessly on both desktop and mobile devices.
-- **Private Network Access**: Application is hosted on a private localhost and accessible through Tailscale's secure network.
+### Image Sharing
 
-## Technologies Used
+- **Upload & Share**: Upload images with optional messages
+- **Image Optimization**: Automatic compression and conversion to WebP format
+- **Camera Integration**: Capture images directly from device camera
+- **Secure Sharing**: Generate unique links for shared images
+- **Auto-deletion**: Optional automatic deletion after specified time
 
-This project utilizes the following technologies:
+### Real-time Chat
 
-- **Next.js**: A React framework for building server-side rendered applications.
-- **TypeScript**: A strongly typed programming language that builds on JavaScript.
-- **MongoDB**: A NoSQL database used for storing chat messages and image metadata.
-- **Kafka**: A distributed event streaming platform used for real-time data processing.
-- **Docker & Docker Compose**: Used for containerization and managing multi-container applications.
-- **Tailwind CSS**: A utility-first CSS framework for styling the application.
-- **Sharp**: An image processing library used for image compression and conversion.
-- **Framer Motion**: A library for creating animations in React applications.
-- **Tailscale**: Used for secure access to the application through private network tunneling.
+- **Instant Messaging**: Real-time communication using Kafka
+- **Room Management**: Create and join chat rooms
+- **Message History**: Persistent message storage with pagination
+- **Emoji Support**: Rich emoji picker for enhanced expression
+- **Real-time Updates**: Instant message delivery using SSE
+
+### User Experience
+
+- **Responsive Design**: Works seamlessly on mobile and desktop
+- **Loading States**: Smooth loading transitions
+- **Error Handling**: Graceful error management
+- **Copy to Clipboard**: Easy sharing of room IDs and links
+
+## What I Learned
+
+Throughout the development of this project, I gained extensive experience in:
+
+1. **Modern Web Technologies**
+
+   - Next.js 14 with App Router and Server Components
+   - TypeScript for type-safe development
+   - Real-time communication using Kafka
+   - MongoDB for persistent data storage
+
+2. **Advanced Features Implementation**
+
+   - Real-time messaging system using Kafka
+   - Image processing and optimization with Sharp
+   - WebRTC for camera integration
+   - Server-Sent Events (SSE) for real-time updates
+
+3. **Architecture & Design Patterns**
+
+   - Event-driven architecture using Kafka
+   - Repository pattern for data access
+   - Clean architecture principles
+   - Separation of concerns
+
+4. **UI/UX Development**
+
+   - Responsive design using Tailwind CSS
+   - Custom component development
+   - Animation and transitions using Framer Motion
+   - Accessibility considerations
+
+5. **DevOps & Infrastructure**
+   - Docker containerization
+   - Microservices architecture
+   - Environment configuration
+   - API design and implementation
+
+## Technology Stack
+
+- **Frontend**
+
+  - Next.js 14
+  - TypeScript
+  - Tailwind CSS
+  - Framer Motion
+  - Shadcn UI
+
+- **Backend**
+
+  - Node.js
+  - MongoDB
+  - Apache Kafka
+  - Sharp (Image Processing)
+
+- **Infrastructure**
+  - Docker
+  - Docker Compose
+  - Zookeeper
 
 ## Getting Started
 
 ### Prerequisites
 
-Ensure you have the following installed:
-
-- Docker
-- Docker Compose
-- Node.js
-- npm or Yarn
-- Tailscale
+- Node.js 18+
+- Docker and Docker Compose
+- MongoDB URI
+- Kafka Broker
 
 ### Installation
 
 1. Clone the repository:
    ```bash
    git clone https://github.com/devdaim6/chat-and-share.git
-   ```
-2. Navigate to the project directory:
-   ```bash
    cd chat-and-share
    ```
-3. Install dependencies:
+2. Install dependencies:
    ```bash
    npm install
    ```
-4. Set up environment variables by creating a `.env` file:
-   ```
-   MONGODB_URI=your_mongodb_uri
-   ```
-
-5. Build and start the Docker containers:
+3. Set up environment variables:
    ```bash
-   docker-compose up --build
+   cp .env.example .env
+   ```
+   Edit `.env` with your configuration:
+   ```env
+   MONGODB_URI=your_mongodb_uri
+   KAFKA_BROKER_URL=localhost:9092
+   ```
+4. Start the Kafka infrastructure:
+   ```bash
+   docker-compose up -d
+   ```
+5. Run the development server:
+   ```bash
+   npm run dev
    ```
 
-6. Install and configure Tailscale:
-   - Install Tailscale on your machine
-   - Log in to your Tailscale account
-   - Enable port forwarding for the application ports (3000, 9092, 2181)
+## Architecture
 
-### Usage
+The application follows a microservices architecture:
 
-1. Access the application through your Tailscale network at `http://your-tailscale-machine:3000`.
-2. The following ports are exposed through Tailscale:
-   - Web Application: 3000
-   - Kafka: 9092
-   - Zookeeper: 2181
-3. Use the interface to upload images, join chat rooms, and share links.
+1. **Web Server**: Next.js application handling HTTP requests
+2. **Message Broker**: Kafka for real-time message distribution
+3. **Database**: MongoDB for persistent storage
+4. **Image Service**: Sharp for image processing
+
+## API Documentation
+
+### Image Endpoints
+
+- `POST /api/upload`: Upload new image
+- `GET /api/images/:imageId`: Retrieve image
+- `DELETE /api/images/:imageId`: Delete image
+
+### Chat Endpoints
+
+- `POST /api/create-room`: Create new chat room
+- `POST /api/chat/send`: Send message
+- `GET /api/chat/stream`: Stream messages
+- `GET /api/room-messages/:roomId`: Get room messages
 
 ## Contributing
 
-Contributions are welcome! Please fork the repository and submit a pull request for any improvements or bug fixes.
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ## License
 
-This project is licensed under the MIT License - see the [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Contact
 
-For any questions or feedback, feel free to reach out:
-
-- **Email**: [devdaim@proton.me](mailto:devdaim@proton.me)
-- **LinkedIn**: [![LinkedIn](https://avatars.githubusercontent.com/u/357098?s=40&v=4)](https://www.linkedin.com/in/daimzahoorit)
-- **GitHub**: [![Github](https://avatars.githubusercontent.com/u/9919?s=40&v=4)](https://github.com/devdaim6)
+Daim Zahoor - [daimdev6+chat-and-share@gmail.com](mailto:daimdev6+chat-and-share@gmail.com)
+Project Link: [https://github.com/devdaim6/chat-and-share](https://github.com/devdaim6/chat-and-share)
