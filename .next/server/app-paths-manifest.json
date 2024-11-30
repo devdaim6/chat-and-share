@@ -1,10 +1,15 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
-  "/api/room-messages/[roomId]/route": "app/api/room-messages/[roomId]/route.js",
-  "/api/chat/stream/route": "app/api/chat/stream/route.js",
   "/api/chat/send/route": "app/api/chat/send/route.js",
+  "/api/chat/stream/route": "app/api/chat/stream/route.js",
+  "/api/delete-room/route": "app/api/delete-room/route.js",
   "/api/create-room/route": "app/api/create-room/route.js",
-  "/page": "app/page.js",
+  "/api/images/[imageId]/route": "app/api/images/[imageId]/route.js",
+  "/api/room-messages/[roomId]/route": "app/api/room-messages/[roomId]/route.js",
+  "/api/send-message/route": "app/api/send-message/route.js",
+  "/api/upload/route": "app/api/upload/route.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
   "/chat/page": "app/chat/page.js",
+  "/page": "app/page.js",
   "/receive/page": "app/receive/page.js"
 }
