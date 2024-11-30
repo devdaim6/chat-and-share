@@ -14,11 +14,23 @@ docker-compose up -d || { echo "docker-compose up failed"; exit 1; }
 
 # Wait for containers to be ready
 echo "Waiting for containers to be ready..."
-while ! docker ps | grep -q "(healthy)"; do
-  echo "Waiting for containers to be healthy..."
+max_attempts=12  # 1 minute total wait time
+attempt=1
+
+while [ $attempt -le $max_attempts ]; do
+  if docker ps | grep -q "chat-and-share-kafka" && docker ps | grep -q "chat-and-share-zookeeper"; then
+    echo "Containers are ready!"
+    break
+  fi
+  echo "Waiting for containers to be ready... (Attempt $attempt/$max_attempts)"
   sleep 5
+  attempt=$((attempt + 1))
 done
-echo "Containers are ready!"
+
+if [ $attempt -gt $max_attempts ]; then
+  echo "Timeout waiting for containers to be ready"
+  exit 1
+fi
 
 # Restart PM2 processes
 echo "Restarting PM2 processes..."
