@@ -61,7 +61,7 @@ export default function Navbar() {
 
       {/* Mobile Navigation */}
       <nav className="fixed bottom-0 left-0 right-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-t md:hidden">
-        <div className="container flex h-16 items-center justify-around">
+        <div className="container flex h-12 items-center justify-around">
           {[
             { href: "/", label: "Share", icon: <Upload className="w-5 h-5" /> },
             { href: "/receive", label: "Receive", icon: <Download className="w-5 h-5" /> },
