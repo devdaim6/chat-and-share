@@ -266,7 +266,7 @@ export default function Home() {
                     />
                     <label
                       htmlFor="fileInput"
-                      className="cursor-pointer block min-h-[250px] sm:min-h-[350px] max-h-[400px] flex items-center justify-center"
+                      className="cursor-pointer flex min-h-[250px] sm:min-h-[350px] max-h-[400px] items-center justify-center"
                     >
                       {preview ? (
                         <Image
