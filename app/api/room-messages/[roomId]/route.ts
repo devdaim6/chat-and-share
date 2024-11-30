@@ -10,7 +10,7 @@ export async function GET(
     const { roomId } = await params;
     const url = new URL(request.url);
     const page = parseInt(url.searchParams.get('page') || '0');
-    const limit = 10; // Number of messages per page
+    const limit = 5; // Number of messages per page
 
     const room = await ChatRoom.findOne({ roomId });
     if (!room) {

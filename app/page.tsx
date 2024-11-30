@@ -62,7 +62,7 @@ export default function Home() {
 
       // Request camera access with more permissive constraints
       const constraints = {
-        video: true // Simplified constraints to improve compatibility
+        video: true, // Simplified constraints to improve compatibility
       };
 
       // First try to get any video stream
@@ -70,28 +70,29 @@ export default function Home() {
 
       // Once we have a basic stream, try to get the environment camera if available
       const devices = await navigator.mediaDevices.enumerateDevices();
-      const cameras = devices.filter(device => device.kind === 'videoinput');
-      
+      const cameras = devices.filter((device) => device.kind === "videoinput");
+
       // If we have multiple cameras, try to use the environment facing one
       if (cameras.length > 1) {
-        const envCamera = cameras.find(camera => 
-          camera.label.toLowerCase().includes('back') || 
-          camera.label.toLowerCase().includes('environment')
+        const envCamera = cameras.find(
+          (camera) =>
+            camera.label.toLowerCase().includes("back") ||
+            camera.label.toLowerCase().includes("environment")
         );
-        
+
         if (envCamera) {
           // Stop the current stream
-          stream.getTracks().forEach(track => track.stop());
-          
+          stream.getTracks().forEach((track) => track.stop());
+
           // Try to get the environment camera stream
           const envStream = await navigator.mediaDevices.getUserMedia({
             video: {
               deviceId: { exact: envCamera.deviceId },
               width: { ideal: 1920 },
-              height: { ideal: 1080 }
-            }
+              height: { ideal: 1080 },
+            },
           });
-          
+
           if (videoRef.current) {
             videoRef.current.srcObject = envStream;
             await videoRef.current.play();
@@ -110,7 +111,6 @@ export default function Home() {
           await videoRef.current.play();
         }
       }
-
     } catch (err) {
       console.error("Error accessing camera:", err);
       setCameraError(
@@ -137,7 +137,7 @@ export default function Home() {
       canvasRef.current.height = videoHeight;
 
       // Flip horizontally if using front camera
-      if (videoRef.current.style.transform.includes('scaleX(-1)')) {
+      if (videoRef.current.style.transform.includes("scaleX(-1)")) {
         context.scale(-1, 1);
         context.translate(-videoWidth, 0);
       }
@@ -215,7 +215,38 @@ export default function Home() {
 
   return (
     <>
-      <div className="min-h-[90vh] bg-gradient-to-br from-gray-50 to-gray-100 p-0 sm:p-0 md:p-0">
+      {/* Share Link Section */}
+      {uploadStatus === "success" && (
+        <div className="fixed top-4 right-4 z-50 w-[90%] sm:w-[35rem] mx-4 sm:mx-0 space-y-2 sm:space-y-3 bg-gray-50 p-3 sm:p-4 rounded-lg border-2 shadow-lg animate-in slide-in-from-right">
+          <p className="text-xs sm:text-sm font-medium text-gray-600">
+            Share your image with this link:
+          </p>
+          <div className="flex gap-2">
+            <Input
+              value={shareLink}
+              readOnly
+              className="font-mono text-xs sm:text-sm bg-white flex-1"
+            />
+            <Button
+              onClick={copyToClipboard}
+              variant="outline"
+              title="Copy to clipboard"
+              className="hover:bg-blue-50 hover:border-blue-300 transition-all duration-300"
+            >
+              <Copy className="h-4 w-4" />
+            </Button>
+            <Button
+              onClick={() => router.push(`/receive?id=${imageId}`)}
+              variant="outline"
+              title="Open receive page"
+              className="hover:bg-purple-50 hover:border-purple-300 transition-all duration-300"
+            >
+              <ExternalLink className="h-4 w-4" />
+            </Button>
+          </div>
+        </div>
+      )}
+      <div className="min-h-[75vh] bg-gradient-to-br from-gray-50 to-gray-100 p-0 sm:p-0 md:p-0">
         <div className="max-w-screen mx-auto">
           <Card className="transition-all duration-300 shadow-lg hover:shadow-xl bg-white/80 backdrop-blur-sm">
             <CardHeader className="flex flex-col sm:flex-row items-center justify-between border-b pb-4 gap-4">
@@ -227,7 +258,7 @@ export default function Home() {
               {/* Image/Camera Input Section */}
               <div className="border-2 border-dashed border-gray-300 rounded-xl p-3 sm:p-4 text-center hover:border-gray-400 transition-all duration-300 bg-gray-50">
                 {isCameraMode ? (
-                  <div className="relative min-h-[250px] sm:min-h-[350px] max-h-[400px]">
+                  <div className="relative min-h-[200px] sm:min-h-[300px] max-h-[350px]">
                     <video
                       ref={videoRef}
                       autoPlay
@@ -236,7 +267,7 @@ export default function Home() {
                     <canvas
                       ref={canvasRef}
                       width="640"
-                      height="480"
+                      height="400"
                       className="hidden"
                     />
                     <div className="absolute bottom-4 left-0 right-0 flex justify-center space-x-4">
@@ -266,19 +297,19 @@ export default function Home() {
                     />
                     <label
                       htmlFor="fileInput"
-                      className="cursor-pointer flex min-h-[250px] sm:min-h-[350px] max-h-[400px] items-center justify-center"
+                      className="cursor-pointer flex min-h-[150px] sm:min-h-[300px] max-h-[450px] items-center justify-center"
                     >
                       {preview ? (
                         <Image
                           src={preview}
                           alt="Preview"
-                          className="max-h-[250px] sm:max-h-[350px] w-auto object-contain rounded-lg shadow-md transition-transform duration-300 hover:scale-[1.02]"
+                          className="max-h-[200px] sm:max-h-[300px] w-auto object-contain rounded-lg shadow-md transition-transform duration-300 hover:scale-[1.02]"
                           width={1280}
                           height={720}
                         />
                       ) : (
-                        <div className="space-y-3 text-gray-500">
-                          <ImageIcon className="w-12 h-12 sm:w-16 sm:h-16 mx-auto text-gray-400" />
+                        <div className="space-y-1 text-gray-500">
+                          <ImageIcon className="w-12 h-8 sm:w-16 sm:h-16 mx-auto text-gray-400" />
                           <p className="text-base sm:text-lg">
                             Click to select an image
                           </p>
@@ -337,38 +368,6 @@ export default function Home() {
                   </>
                 )}
               </Button>
-
-              {/* Share Link Section */}
-              {uploadStatus === "success" && (
-                <div className="space-y-2 sm:space-y-3 bg-gray-50 p-3 sm:p-4 rounded-lg border-2">
-                  <p className="text-xs sm:text-sm font-medium text-gray-600">
-                    Share your image with this link:
-                  </p>
-                  <div className="flex gap-2">
-                    <Input
-                      value={shareLink}
-                      readOnly
-                      className="font-mono text-xs sm:text-sm bg-white flex-1"
-                    />
-                    <Button
-                      onClick={copyToClipboard}
-                      variant="outline"
-                      title="Copy to clipboard"
-                      className="hover:bg-blue-50 hover:border-blue-300 transition-all duration-300"
-                    >
-                      <Copy className="h-4 w-4" />
-                    </Button>
-                    <Button
-                      onClick={() => router.push(`/receive?id=${imageId}`)}
-                      variant="outline"
-                      title="Open receive page"
-                      className="hover:bg-purple-50 hover:border-purple-300 transition-all duration-300"
-                    >
-                      <ExternalLink className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </div>
-              )}
 
               {uploadStatus === "error" && (
                 <Alert
